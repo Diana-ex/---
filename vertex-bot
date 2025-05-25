@@ -1,1 +1,23 @@
+from flask import Flask, request
+import os
 
+app = Flask(__name__)
+
+@app.route('/', methods=['POST'])
+def main():
+    data = request.json
+
+    if data['type'] == 'confirmation':
+        return 'a592aed9'  # Замени на свой код подтверждения
+
+    elif data['type'] == 'message_new':
+        user_id = data['object']['peer_id']
+        message_text = data['object']['text']
+
+        # Отправляем сообщение пользователю
+        return f'Вы написали: {message_text}'
+
+    return 'ok'
+
+if __name__ == '__main__':
+    app.run()
